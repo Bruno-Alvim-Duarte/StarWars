@@ -13,7 +13,7 @@ function Table() {
           <tr>
             {
               keys.map((key) => (
-                <th key={ key }>{key}</th>
+                <th data-testid="tableHeaders" key={ key }>{key}</th>
               ))
             }
           </tr>
@@ -21,7 +21,7 @@ function Table() {
         <tbody>
           {
             filterByNameByNumber.map((planet) => (
-              <tr key={ planet.name }>
+              <tr data-testid="tableBodys" key={ planet.name }>
                 {keys.map((key) => (
                   <td key={ key }>{planet[key]}</td>
                 ))}

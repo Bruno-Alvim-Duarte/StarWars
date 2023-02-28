@@ -15,7 +15,6 @@ function Provider({ children }) {
       .then((data) => {
         data.results.forEach((planet) => delete planet.residents);
         setResultAPI(data.results);
-        console.log(data.results);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -28,7 +27,6 @@ function Provider({ children }) {
     if (numberFilters.length === 0) {
       return true;
     }
-    console.log(numberFilters);
     return numberFilters.every((numberFilter) => {
       if (numberFilter.comparasion === 'maior que') {
         return Number(planet[numberFilter.column]) > Number(numberFilter.valueFilter);
