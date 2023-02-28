@@ -34,7 +34,7 @@ describe('Testa os filtros por número', () => {
   it('testa se ao adicionar um filtro de population igual a 1000 aparece somente o correto', async () => {
     renderWithContext(<App />);
 
-    await waitFor(() => expect(screen.queryByText('Carregando...')).not.toBeInTheDocument(), { timeout: 3000});
+    await waitFor(() => expect(screen.queryByText('Carregando...')).not.toBeInTheDocument(), { timeout: 6000});
     const columnInput = screen.getByTestId('column-filter');
     const comparisonInput = screen.getByTestId('comparison-filter');
     const valueInput = screen.getByTestId('value-filter');

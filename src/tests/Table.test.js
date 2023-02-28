@@ -8,7 +8,7 @@ describe('Testa a rendereização da table', () => {
     jest.spyOn(global, 'fetch');
     renderWithContext(<App />);
 
-    await waitFor(() => expect(screen.queryByText('Carregando...')).not.toBeInTheDocument(), { timeout: 3000})
+    await waitFor(() => expect(screen.queryByText('Carregando...')).not.toBeInTheDocument(), { timeout: 6000})
     expect(fetch).toHaveBeenCalledWith('https://swapi.dev/api/planets');
     const thead = screen.getAllByTestId('tableHeaders');
     expect(thead).toHaveLength(13)

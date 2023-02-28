@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import context from '../Context/MyContext';
 
 function FilterByNumbers() {
-  const { handleClickFilterBtn } = useContext(context);
+  const { handleClickFilterBtn, numberFilters } = useContext(context);
 
   const [column, setColumn] = useState('population');
   const [comparasion, setComparasion] = useState('maior que');
   const [valueFilter, setValueFilter] = useState('0');
+  const [optionsColumn, setOptionsColumn] = useState([]);
 
   const handleChangeNumberInput = ({ target }) => {
     if (target.id === 'columnFilter') {
@@ -20,6 +21,17 @@ function FilterByNumbers() {
     }
   };
 
+  const options = useMemo(() => (['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']), []);
+
+  useEffect(() => {
+    const optionsAbled = options.filter(
+      (option) => !numberFilters.some((numberFilter) => numberFilter.column === option),
+    );
+    setOptionsColumn(optionsAbled);
+    setColumn(optionsAbled[0]);
+  }, [numberFilters, options]);
+
   return (
     <div>
       <select
@@ -28,11 +40,9 @@ function FilterByNumbers() {
         data-testid="column-filter"
         onChange={ handleChangeNumberInput }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {optionsColumn.map((optionColumn) => (
+          <option key={ optionColumn } value={ optionColumn }>{optionColumn}</option>
+        ))}
       </select>
 
       <select
@@ -55,7 +65,9 @@ function FilterByNumbers() {
       />
       <button
         data-testid="button-filter"
-        onClick={ () => handleClickFilterBtn({ column, comparasion, valueFilter }) }
+        onClick={ async () => {
+          handleClickFilterBtn({ column, comparasion, valueFilter });
+        } }
       >
         Filtrar
 

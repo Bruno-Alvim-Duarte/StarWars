@@ -54,10 +54,11 @@ function Provider({ children }) {
     loading,
     filterByName,
     filterByNameByNumber,
+    numberFilters,
     handleChangeNameInput,
     handleClickFilterBtn,
   }), [resultAPI, loading, filterByName, handleChangeNameInput, handleClickFilterBtn,
-    filterByNameByNumber]);
+    filterByNameByNumber, numberFilters]);
 
   return (
     <MyContext.Provider value={ context }>
