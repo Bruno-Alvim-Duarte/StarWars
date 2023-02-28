@@ -7,6 +7,7 @@ function Provider({ children }) {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [numberFilters, setNumberFilters] = useState([]);
+  const [order, setOrder] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -41,6 +42,27 @@ function Provider({ children }) {
     });
   });
 
+  const filterByNameByNumberBySort = filterByNameByNumber.sort((planetA, planetB) => {
+    const maintainNumber = -1;
+    if (planetA[order.column] === 'unknown' && planetB[order.column] !== 'unknown') {
+      return 1; // planetA tem 'unknown', coloca no final da lista
+    }
+    if (planetA[order.column] !== 'unknown' && planetB[order.column] === 'unknown') {
+      return maintainNumber; // planetB tem 'unknown', coloca no final da lista
+    }
+    if (order.sort === 'ASC') {
+      return planetA[order.column] - planetB[order.column];
+    }
+    if (order.sort === 'DESC') {
+      return planetB[order.column] - planetA[order.column];
+    }
+    return 0; // planetA e planetB têm o mesmo valor, não há diferença na ordem
+  });
+
+  const handleClickSort = (column, sort) => {
+    setOrder({ column, sort });
+  };
+
   const handleClickRemoveFilters = () => {
     setNumberFilters([]);
   };
@@ -65,13 +87,16 @@ function Provider({ children }) {
     loading,
     filterByName,
     filterByNameByNumber,
+    filterByNameByNumberBySort,
     numberFilters,
     handleChangeNameInput,
     handleClickFilterBtn,
     handleClickRemoveFilters,
     handleClickRemoveFilter,
+    handleClickSort,
   }), [resultAPI, loading, filterByName, handleChangeNameInput, handleClickFilterBtn,
-    filterByNameByNumber, numberFilters, handleClickRemoveFilter]);
+    filterByNameByNumber, numberFilters, handleClickRemoveFilter,
+    filterByNameByNumberBySort]);
 
   return (
     <MyContext.Provider value={ context }>

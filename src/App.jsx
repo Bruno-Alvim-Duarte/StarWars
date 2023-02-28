@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import './App.css';
 import FilterByNumbers from './components/FilterByNumbers';
 import FiltersDisplay from './components/FiltersDisplay';
+import Order from './components/Order';
 import Table from './components/Table';
 import context from './Context/MyContext';
 
@@ -22,6 +23,7 @@ function App() {
         />
       </label>
       <FilterByNumbers />
+      <Order />
       <button
         data-testid="button-remove-filters"
         onClick={ handleClickRemoveFilters }
