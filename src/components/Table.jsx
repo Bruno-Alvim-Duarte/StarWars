@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import context from '../Context/MyContext';
 
 function Table() {
-  const { filteredList, loading } = useContext(context);
+  const { filterByNameByNumber, loading } = useContext(context);
   if (loading) return <p>Carregando...</p>;
 
-  if (filteredList.length > 0) {
-    const keys = Object.keys(filteredList[0]);
+  if (filterByNameByNumber.length > 0) {
+    const keys = Object.keys(filterByNameByNumber[0]);
     return (
       <table>
         <thead>
@@ -20,7 +20,7 @@ function Table() {
         </thead>
         <tbody>
           {
-            filteredList.map((planet) => (
+            filterByNameByNumber.map((planet) => (
               <tr key={ planet.name }>
                 {keys.map((key) => (
                   <td key={ key }>{planet[key]}</td>

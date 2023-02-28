@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import './App.css';
+import FilterByNumbers from './components/FilterByNumbers';
 import Table from './components/Table';
 import context from './Context/MyContext';
 
@@ -19,6 +20,7 @@ function App() {
           data-testid="name-filter"
         />
       </label>
+      <FilterByNumbers />
       <Table />
     </div>
   );
