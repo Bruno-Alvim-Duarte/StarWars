@@ -1,8 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import context from '../Context/MyContext';
 
 function FilterByNumbers() {
-  const { handleChangeNumberInput, handleClickFilterBtn } = useContext(context);
+  const { handleClickFilterBtn } = useContext(context);
+
+  const [column, setColumn] = useState('population');
+  const [comparasion, setComparasion] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState('0');
+
+  const handleChangeNumberInput = ({ target }) => {
+    if (target.id === 'columnFilter') {
+      setColumn(target.value);
+    }
+    if (target.id === 'comparasionFilter') {
+      setComparasion(target.value);
+    }
+    if (target.id === 'valueFilter') {
+      setValueFilter(target.value);
+    }
+  };
 
   return (
     <div>
@@ -16,7 +32,7 @@ function FilterByNumbers() {
         <option value="orbital_period">orbital_period</option>
         <option value="diameter">diameter</option>
         <option value="rotation_period">rotation_period</option>
-        <option value="surface-_water">surface-_water</option>
+        <option value="surface_water">surface_water</option>
       </select>
 
       <select
@@ -25,9 +41,9 @@ function FilterByNumbers() {
         data-testid="comparison-filter"
         onChange={ handleChangeNumberInput }
       >
-        <option value="higher">maior que</option>
-        <option value="lower">menor que</option>
-        <option value="equal">igual a</option>
+        <option value="maior que">maior que</option>
+        <option value="menor que">menor que</option>
+        <option value="igual a">igual a</option>
       </select>
       <input
         type="number"
@@ -35,10 +51,11 @@ function FilterByNumbers() {
         id="valueFilter"
         data-testid="value-filter"
         onChange={ handleChangeNumberInput }
+        value={ valueFilter }
       />
       <button
         data-testid="button-filter"
-        onClick={ handleClickFilterBtn }
+        onClick={ () => handleClickFilterBtn({ column, comparasion, valueFilter }) }
       >
         Filtrar
 

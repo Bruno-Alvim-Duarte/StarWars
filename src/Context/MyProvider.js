@@ -6,9 +6,7 @@ function Provider({ children }) {
   const [resultAPI, setResultAPI] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
-  const [column, setColumn] = useState('population');
-  const [comparasion, setComparasion] = useState('higher');
-  const [valueFilter, setValueFilter] = useState('');
+  const [numberFilters, setNumberFilters] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -27,42 +25,40 @@ function Provider({ children }) {
   );
 
   const filterByNameByNumber = filterByName.filter((planet) => {
-    if (comparasion === 'higher') {
-      return planet[column] > Number(valueFilter);
+    if (numberFilters.length === 0) {
+      return true;
     }
-    if (comparasion === 'lower') {
-      return planet[column] < Number(valueFilter);
-    }
-    if (comparasion === 'equal') {
-      return planet[column] === Number(valueFilter);
-    }
-    return true;
+    console.log(numberFilters);
+    return numberFilters.every((numberFilter) => {
+      if (numberFilter.comparasion === 'maior que') {
+        return Number(planet[numberFilter.column]) > Number(numberFilter.valueFilter);
+      }
+      if (numberFilter.comparasion === 'menor que') {
+        return Number(planet[numberFilter.column]) < Number(numberFilter.valueFilter);
+      }
+      if (numberFilter.comparasion === 'igual a') {
+        return Number(planet[numberFilter.column]) === Number(numberFilter.valueFilter);
+      }
+      return true;
+    });
   });
-
-  const handleChangeNumberInput = useCallback(({ target }) => {
-    if (target.id === 'columnFilter') {
-      setColumn(target.value);
-    }
-    if (target.id === 'comparasionFilter') {
-      setComparasion(target.value);
-    }
-    if (target.id === 'valueFilter') {
-      setValueFilter(target.value);
-    }
-  }, []);
 
   const handleChangeNameInput = useCallback(({ target }) => {
     setSearch(target.value);
   }, []);
 
+  const handleClickFilterBtn = useCallback((filter) => {
+    setNumberFilters([...numberFilters, filter]);
+  }, [numberFilters]);
+
   const context = useMemo(() => ({
     resultAPI,
     loading,
     filterByName,
-    handleChangeNameInput,
-    handleChangeNumberInput,
     filterByNameByNumber,
-  }), [resultAPI, loading, filterByName, handleChangeNameInput, handleChangeNumberInput,
+    handleChangeNameInput,
+    handleClickFilterBtn,
+  }), [resultAPI, loading, filterByName, handleChangeNameInput, handleClickFilterBtn,
     filterByNameByNumber]);
 
   return (
@@ -73,7 +69,7 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Provider;
