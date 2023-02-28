@@ -39,6 +39,7 @@ function FilterByNumbers() {
         id="columnFilter"
         data-testid="column-filter"
         onChange={ handleChangeNumberInput }
+        value={ column }
       >
         {optionsColumn.map((optionColumn) => (
           <option key={ optionColumn } value={ optionColumn }>{optionColumn}</option>
@@ -50,6 +51,7 @@ function FilterByNumbers() {
         id="comparasionFilter"
         data-testid="comparison-filter"
         onChange={ handleChangeNumberInput }
+        value={ comparasion }
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>

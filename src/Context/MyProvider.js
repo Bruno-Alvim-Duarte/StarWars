@@ -41,6 +41,17 @@ function Provider({ children }) {
     });
   });
 
+  const handleClickRemoveFilters = () => {
+    setNumberFilters([]);
+  };
+
+  const handleClickRemoveFilter = useCallback((filter) => {
+    const newNumberFilters = numberFilters.filter(
+      (numberFilter) => numberFilter.column !== filter.column,
+    );
+    setNumberFilters(newNumberFilters);
+  }, [numberFilters]);
+
   const handleChangeNameInput = useCallback(({ target }) => {
     setSearch(target.value);
   }, []);
@@ -57,8 +68,10 @@ function Provider({ children }) {
     numberFilters,
     handleChangeNameInput,
     handleClickFilterBtn,
+    handleClickRemoveFilters,
+    handleClickRemoveFilter,
   }), [resultAPI, loading, filterByName, handleChangeNameInput, handleClickFilterBtn,
-    filterByNameByNumber, numberFilters]);
+    filterByNameByNumber, numberFilters, handleClickRemoveFilter]);
 
   return (
     <MyContext.Provider value={ context }>

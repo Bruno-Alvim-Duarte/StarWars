@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import './App.css';
 import FilterByNumbers from './components/FilterByNumbers';
+import FiltersDisplay from './components/FiltersDisplay';
 import Table from './components/Table';
 import context from './Context/MyContext';
 
 function App() {
-  const { handleChangeNameInput } = useContext(context);
+  const { handleChangeNameInput, handleClickRemoveFilters } = useContext(context);
 
   return (
     <div>
@@ -21,6 +22,14 @@ function App() {
         />
       </label>
       <FilterByNumbers />
+      <button
+        data-testid="button-remove-filters"
+        onClick={ handleClickRemoveFilters }
+      >
+        Remover Filtros
+
+      </button>
+      <FiltersDisplay />
       <Table />
     </div>
   );
