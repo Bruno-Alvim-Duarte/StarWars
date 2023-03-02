@@ -85,8 +85,9 @@ describe('Testa os filtros por número', () => {
     userEvent.type(valueInput, '1000000');
     userEvent.click(filterBtn);
     expect(screen.getAllByTestId('planet-name')).toHaveLength(2);
-    const removeBtns = screen.getAllByRole('button', { name:"Remove" });
-    userEvent.click(removeBtns[1]);
+    const filter = screen.getAllByTestId('filter');
+    // const removeBtns = screen.getAllByRole('button', { name:"Remove" });
+    userEvent.click(filter[1].lastChild);
     expect(screen.getAllByTestId('planet-name')).toHaveLength(7);
   });
 })

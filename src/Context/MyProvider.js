@@ -35,10 +35,7 @@ function Provider({ children }) {
       if (numberFilter.comparasion === 'menor que') {
         return Number(planet[numberFilter.column]) < Number(numberFilter.valueFilter);
       }
-      if (numberFilter.comparasion === 'igual a') {
-        return Number(planet[numberFilter.column]) === Number(numberFilter.valueFilter);
-      }
-      return true;
+      return Number(planet[numberFilter.column]) === Number(numberFilter.valueFilter);
     });
   });
 
