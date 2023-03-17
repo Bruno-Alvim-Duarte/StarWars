@@ -5,13 +5,14 @@ import FiltersDisplay from './components/FiltersDisplay';
 import Order from './components/Order';
 import Table from './components/Table';
 import context from './Context/MyContext';
+import starWarsGif from './images/starWars.gif';
 
 function App() {
   const { handleChangeNameInput, handleClickRemoveFilters } = useContext(context);
 
   return (
-    <div>
-      <h1>bla</h1>
+    <div className="App">
+      <img src={ starWarsGif } alt="star wars gif" />
       <label htmlFor="nameFilter">
         Nome:
         <input

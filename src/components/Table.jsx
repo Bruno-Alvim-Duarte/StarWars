@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import context from '../Context/MyContext';
+import '../styles/Table.css';
 
 function Table() {
   const { filterByNameByNumberBySort, loading } = useContext(context);
@@ -8,34 +9,36 @@ function Table() {
   if (filterByNameByNumberBySort.length > 0) {
     const keys = Object.keys(filterByNameByNumberBySort[0]);
     return (
-      <table>
-        <thead>
-          <tr>
+      <div className="Table">
+        <table>
+          <thead>
+            <tr>
+              {
+                keys.map((key) => (
+                  <th data-testid="tableHeaders" key={ key }>{key}</th>
+                ))
+              }
+            </tr>
+          </thead>
+          <tbody>
             {
-              keys.map((key) => (
-                <th data-testid="tableHeaders" key={ key }>{key}</th>
+              filterByNameByNumberBySort.map((planet) => (
+                <tr data-testid="tableBodys" key={ planet.name }>
+                  {keys.map((key) => (
+                    <td
+                      data-testid={ key === 'name' ? 'planet-name' : '' }
+                      key={ key }
+                    >
+                      {planet[key]}
+
+                    </td>
+                  ))}
+                </tr>
               ))
             }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            filterByNameByNumberBySort.map((planet) => (
-              <tr data-testid="tableBodys" key={ planet.name }>
-                {keys.map((key) => (
-                  <td
-                    data-testid={ key === 'name' ? 'planet-name' : '' }
-                    key={ key }
-                  >
-                    {planet[key]}
-
-                  </td>
-                ))}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
