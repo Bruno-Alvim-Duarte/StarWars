@@ -1,3 +1,5 @@
+import { Button, FormControl, InputLabel, MenuItem, Select,
+  TextField } from '@mui/material';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import context from '../Context/MyContext';
 
@@ -16,7 +18,7 @@ function FilterByNumbers() {
     if (target.id === 'comparasionFilter') {
       setComparasion(target.value);
     }
-    if (target.id === 'valueFilter') {
+    if (target.id === 'valueFilter' && Number(target.value) >= 0) {
       setValueFilter(target.value);
     }
   };
@@ -33,47 +35,126 @@ function FilterByNumbers() {
   }, [numberFilters, options]);
 
   return (
-    <div>
-      <select
-        name="columnFilter"
-        id="columnFilter"
-        data-testid="column-filter"
-        onChange={ handleChangeNumberInput }
-        value={ column }
+    <div style={ { display: 'flex', alignItems: 'center' } }>
+      <FormControl
+        variant="standard"
+        sx={ {
+          '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+            borderBottomColor: 'white',
+          },
+          '& .MuiInput-underline:before': {
+            borderBottomColor: 'white',
+          },
+        } }
       >
-        {optionsColumn.map((optionColumn) => (
-          <option key={ optionColumn } value={ optionColumn }>{optionColumn}</option>
-        ))}
-      </select>
+        <InputLabel
+          id="columnLabel"
+          color="secondary"
+          style={ { color: 'white' } }
+        >
+          Coluna
 
-      <select
-        name="comparasionFilter"
-        id="comparasionFilter"
-        data-testid="comparison-filter"
-        onChange={ handleChangeNumberInput }
-        value={ comparasion }
+        </InputLabel>
+        <Select
+          labelId="columnLabel"
+          label="Coluna"
+          name="columnFilter"
+          id="columnFilter"
+          data-testid="column-filter"
+          onChange={ handleChangeNumberInput }
+          value={ column }
+          sx={ { color: '#FFFFFF',
+            '& .MuiSelect-icon': {
+              color: 'white',
+            },
+            '& .MuiSelect-standard': {
+              borderBottomColor: 'white',
+              borderBottomWidth: '2px',
+            },
+          } }
+          color="secondary"
+        >
+          {optionsColumn.map((optionColumn) => (
+            <MenuItem key={ optionColumn } value={ optionColumn }>
+              {optionColumn}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <FormControl
+        variant="standard"
+        sx={ { '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+          borderBottomColor: 'white',
+        },
+        '& .MuiInput-underline:before': {
+          borderBottomColor: 'white',
+        } } }
       >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-      <input
-        type="number"
+        <InputLabel
+          id="operadorLabel"
+          color="secondary"
+          sx={ { color: 'rgb(255, 255, 255, 0.7)' } }
+        >
+          Operador
+
+        </InputLabel>
+        <Select
+          labelId="operadorLabel"
+          label="Operador"
+          name="comparasionFilter"
+          id="comparasionFilter"
+          data-testid="comparison-filter"
+          onChange={ handleChangeNumberInput }
+          value={ comparasion }
+          sx={ { color: '#FFFFFF',
+            '& .MuiSelect-icon': {
+              color: 'white',
+            },
+          } }
+          color="secondary"
+        >
+          <MenuItem value="maior que">maior que</MenuItem>
+          <MenuItem value="menor que">menor que</MenuItem>
+          <MenuItem value="igual a">igual a</MenuItem>
+        </Select>
+      </FormControl>
+      <TextField
         name="valueFilter"
         id="valueFilter"
         data-testid="value-filter"
         onChange={ handleChangeNumberInput }
         value={ valueFilter }
+        variant="outlined"
+        inputProps={ { inputMode: 'numeric',
+          pattern: '[0-9]*',
+          style: { color: 'white', width: '30px' } } }
+        color="secondary"
+        sx={ {
+          '& fieldset ': {
+            borderColor: 'white',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: 'white',
+            },
+            '&:hover fieldset': {
+              borderColor: 'white',
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#FFFF00',
+            } } } }
       />
-      <button
+      <Button
         data-testid="button-filter"
+        variant="outlined"
         onClick={ async () => {
           handleClickFilterBtn({ column, comparasion, valueFilter });
         } }
+        color="secondary"
       >
         Filtrar
 
-      </button>
+      </Button>
     </div>
   );
 }
