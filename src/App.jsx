@@ -13,7 +13,7 @@ import './styles/FilterByNumbers.css';
 
 function App() {
   const { handleChangeNameInput, handleClickRemoveFilters } = useContext(context);
-
+  document.title = 'Star-Wars';
   return (
     <ThemeProvider theme={ theme }>
       <CssBaseline />
