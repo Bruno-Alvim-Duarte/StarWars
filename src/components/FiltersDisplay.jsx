@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import context from '../Context/MyContext';
+import context from '../context/MyContext';
 
 function FiltersDisplay() {
   const { numberFilters, handleClickRemoveFilter } = useContext(context);

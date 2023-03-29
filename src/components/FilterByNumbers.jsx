@@ -1,7 +1,8 @@
 import { Button, FormControl, InputLabel, MenuItem, Select,
   TextField } from '@mui/material';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import context from '../Context/MyContext';
+import context from '../context/MyContext';
+import '../styles/FilterByNumbers.css';
 
 function FilterByNumbers() {
   const { handleClickFilterBtn, numberFilters } = useContext(context);
@@ -18,7 +19,7 @@ function FilterByNumbers() {
     if (target.id === 'comparasionFilter') {
       setComparasion(target.value);
     }
-    if (target.id === 'valueFilter' && Number(target.value) >= 0) {
+    if (target.id === 'valueFilter') {
       setValueFilter(target.value);
     }
   };
@@ -35,9 +36,10 @@ function FilterByNumbers() {
   }, [numberFilters, options]);
 
   return (
-    <div style={ { display: 'flex', alignItems: 'center' } }>
+    <div className="filter-comp">
       <FormControl
         variant="standard"
+        style={ { margin: '0 2rem' } }
         sx={ {
           '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
             borderBottomColor: 'white',
@@ -50,7 +52,7 @@ function FilterByNumbers() {
         <InputLabel
           id="columnLabel"
           color="secondary"
-          style={ { color: 'white' } }
+          sx={ { color: 'rgb(255, 255, 255, 0.7)' } }
         >
           Coluna
 
@@ -67,10 +69,6 @@ function FilterByNumbers() {
             '& .MuiSelect-icon': {
               color: 'white',
             },
-            '& .MuiSelect-standard': {
-              borderBottomColor: 'white',
-              borderBottomWidth: '2px',
-            },
           } }
           color="secondary"
         >
@@ -82,6 +80,7 @@ function FilterByNumbers() {
         </Select>
       </FormControl>
       <FormControl
+        style={ { margin: '0 2rem' } }
         variant="standard"
         sx={ { '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
           borderBottomColor: 'white',
@@ -119,15 +118,16 @@ function FilterByNumbers() {
         </Select>
       </FormControl>
       <TextField
+        style={ { margin: '0 2rem' } }
         name="valueFilter"
         id="valueFilter"
         data-testid="value-filter"
         onChange={ handleChangeNumberInput }
         value={ valueFilter }
         variant="outlined"
-        inputProps={ { inputMode: 'numeric',
-          pattern: '[0-9]*',
-          style: { color: 'white', width: '30px' } } }
+        inputProps={ {
+          style: { color: 'white', width: '70px' } } }
+        type="number"
         color="secondary"
         sx={ {
           '& fieldset ': {
@@ -135,7 +135,7 @@ function FilterByNumbers() {
           },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: 'white',
+              borderColor: 'rgb(255, 255, 255, 0.3)',
             },
             '&:hover fieldset': {
               borderColor: 'white',
@@ -145,6 +145,7 @@ function FilterByNumbers() {
             } } } }
       />
       <Button
+        style={ { margin: '0 2rem' } }
         data-testid="button-filter"
         variant="outlined"
         onClick={ async () => {

@@ -1,0 +1,8 @@
+.filter-comp {
+  align-items: center;
+  display: flex;
+}
+
+.filter-comp-item {
+  margin: 0 2rem;
+}

@@ -1,0 +1,8 @@
+.order-comp {
+  align-items: center;
+  display: flex;
+}
+
+.order-comp-item {
+  margin: 0 10rem;
+}
